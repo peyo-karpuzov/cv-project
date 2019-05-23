@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Hello</h1>
+    <h1>{{emps.user.first_name}} {{emps.user.last_name}}</h1>
+    <div class="container">
+        <div class="row">
+            {% for j in jobs %}
+
+            <div class="card" style="width: 18rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{j.position}}</h5>
+                <p class="card-text"><b>Salary:</b>{{j.starting_salary}}</p>
+                <a href="{% url 'job-details' j.pk %}" class="btn btn-primary">See offer</a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
