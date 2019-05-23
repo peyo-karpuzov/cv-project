@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
+{% extends 'index.html' %}
+
+{% block 'content' %}
     <h1>{{letter.text}}</h1>
     <h1>{{letter.applicant_user.user.first_name}}</h1>
     <h1>{{letter.job_offer.position}}</h1>
     <h1><b>Employer's name:</b> {{letter.job_offer.employer_user.user.first_name}}</h1>
-</body>
-</html>
+
+{% endblock %}

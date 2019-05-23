@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+
+{% block 'content' %}
+<div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4">
+            <img style="width:105%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwfGLgE7ubCXfBY3BTKCz1zCotELcaVcXUhm7s0_w9rNdF6svI" alt="">
+        </div>
+        <div class="col-lg-4">
+                <form style="border: 1px solid grey; margin: 0% 0%; padding: 10% 5%" method="post">
+                  <h2>Login</h2>
+                    {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit">Login</button>
+                    <br>
+                    <span>Do not have an account?<a style="color:orange" href="{% url 'register-user' %}">Register here</a></span>
+                </form>
+        </div>
+        <div class="col-lg-2"></div>
+</div>
+
+{% endblock %}

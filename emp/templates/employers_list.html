@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
+{% extends 'index.html' %}
+
+{% block 'content' %}
 
     <div class="container">
         <div class="row">
             {% for e in emps %}
 
             <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
+
               <div class="card-body">
                 <h5 class="card-title">{{e.company_name}}</h5>
                 <p class="card-text">Names: {{e.user.first_name}} {{e.user.last_name}}</p>
@@ -22,6 +17,4 @@
             {% endfor %}
         </div>
     </div>
-
-</body>
-</html>
+{% endblock %}

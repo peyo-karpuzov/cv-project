@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'cv',
     'emp',
+    'accounts',
+    'common',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'auto.urls'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATES = [
     {
