@@ -10,7 +10,7 @@ class EmployerUserForm(forms.ModelForm):
         fields = ('company_name',)
 
 
-class JobOfferCreate(forms.ModelForm):
+class JobOfferForm(forms.ModelForm):
     position = forms.CharField(required=True)
     starting_salary = forms.IntegerField(required=True)
     job_description = forms.CharField(required=True, widget=forms.Textarea)

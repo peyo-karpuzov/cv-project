@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% block 'content' %}
+
+<div class="row">
+    <div class="col-lg-3"></div>
+
+
+    <div class="col-lg-6">
+        <div class="card" style="width: 36rem;">
+          <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+            <h5 class="card-title">General Information</h5>
+            <p class="card-text"><b>Name:</b> {{general.applicant_user.name_first}} {{general.applicant_user.name_last}}<br>
+            <b>Town:</b> {{general.town}}<br>
+            <b>Street:</b> {{general.street}}<br>
+            <b>Phone nuber:</b> {{general.phone_number}}<br>
+            <b>Email:</b> {{general.email}}<br>
+            <b>Sex:</b> {{general.get_gender_display}}<br>
+            </p>
+            </div>
+          <div class="col-lg-6"><img src="{{general.pic}}" class="card-img-top" alt="..."></div>
+          </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="card" style="width: 36rem;">
+          <div class="card-body">
+            <h5 class="card-title">Previous Jobs</h5>
+            {% for w in workplace %}
+            <p class="card-text"><b>Company:</b> {{w.company}}<br>
+            <b>Position:</b> {{w.position}}<br>
+            <b>From</b> {{w.start_date}} <b>to</b> {{w.end_date}}<br><br>
+            </p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="card" style="width: 36rem;">
+          <div class="card-body">
+            <h5 class="card-title">Education</h5>
+            {% for e in education %}
+            <p class="card-text"><b>Degree/level:</b> {{e.get_degree_display}}<br>
+            <b>Institution:</b> {{e.institution}}<br>
+            <b>From</b> {{e.start_date}} <b>to</b> {{e.end_date}}<br><br>
+            </p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="card" style="width: 36rem;">
+          <div class="card-body">
+            <h5 class="card-title">Languages</h5>
+            {% for l in languages %}
+            <p class="card-text"><b>Language:</b> {{l.language}}<br>
+            <b>Writing skills:</b> {{l.writing}}<br>
+            <b>Speaking skills:</b> {{l.speaking}}<br>
+            <b>Reading skills:</b> {{l.reading}}<br>
+            <b>Listening skills:</b> {{l.listening}}<br><br>
+            </p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+
+{% endblock %}

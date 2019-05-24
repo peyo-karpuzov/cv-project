@@ -1,8 +1,7 @@
 {% extends 'index.html' %}
 
 {% block 'content' %}
-
-    <div class="container">
+        {% if jobs %}
         <div class="row">
             {% for j in jobs %}
 
@@ -16,6 +15,9 @@
             </div>
             {% endfor %}
         </div>
-    </div>
+
+        {% else %}
+            <h1> You have no job offers. You can create one <a href="{% url 'job-create' %}" class="btn btn-primary">Create job offer</a></h1>
+        {% endif %}
 
 {% endblock %}

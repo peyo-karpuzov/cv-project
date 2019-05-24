@@ -61,7 +61,7 @@ class EmployerDelete(generic.DeleteView):
 
 
 class JobOfferCreate(generic.CreateView):
-    form_class = forms.JobOfferCreate
+    form_class = forms.JobOfferForm
     template_name = 'job_offer_create.html'
     success_url = '/emp/jobs/'
 
@@ -74,6 +74,19 @@ class JobOffersList(generic.ListView):
     model = JobOffer
     template_name = 'job_offers_list.html'
     context_object_name = 'jobs'
+
+
+class JobOffersUserList(generic.ListView):
+    model = JobOffer
+    template_name = 'job_offers_list.html'
+    context_object_name = 'jobs'
+
+    def get_queryset(self):
+        profile_user = EmployerUser.objects.all().filter(user__pk=self.request.user.id)[0]
+        jobs = JobOffer.objects.filter(employer_user=profile_user)
+        if jobs:
+            return jobs
+        return []
 
 
 class JobOfferDetails(generic.DetailView):
@@ -90,7 +103,7 @@ class JobOfferDetails(generic.DetailView):
 class JobOfferEdit(generic.UpdateView):
     model = JobOffer
     template_name = 'job_offer_create.html'
-    form_class = forms.JobOfferCreate
+    form_class = forms.JobOfferForm
     success_url = '/emp/jobs/'
 
 
