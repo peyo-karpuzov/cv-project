@@ -8,6 +8,11 @@
     <h1>{{emps.user.first_name}} {{emps.user.last_name}}</h1>
     <div class="container">
         <div class="row">
+            <a href="{% url 'employer-edit' emps.id %}" class="btn btn-primary">Edit employer</a>
+            <a href="{% url 'employer-delete' emps.id %}" class="btn btn-danger">Delete employer</a>
+            <a href="{% url 'job-create' %}" class="btn btn-primary">Create a job offer</a>
+        </div>
+        <div class="row">
             {% for j in jobs %}
 
             <div class="card" style="width: 18rem;">

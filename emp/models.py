@@ -18,4 +18,4 @@ class JobOffer(models.Model):
     address = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.employer_user.company_name} offers {self.position}"
+        return f"{self.employer_user.company_name} offers {self.position} position."

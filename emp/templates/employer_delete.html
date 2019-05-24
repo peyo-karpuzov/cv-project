@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+{% block 'content' %}
+<form method="post">
+    {%csrf_token%}
+    <h1>Are you sure you want to delete {{employer.company_name}}'s profile?</h1>
+    <input type="submit" class="btn btn-danger" value="Confirm">
+    <a href="{% url 'employers-all' %}" class="btn btn-primary">No</a>
+</form>
+{% endblock %}

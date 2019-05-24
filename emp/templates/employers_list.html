@@ -2,6 +2,9 @@
 
 {% block 'content' %}
 
+
+    <h1> He is authenticated</h1>
+
     <div class="container">
         <div class="row">
             {% for e in emps %}
@@ -10,11 +13,12 @@
 
               <div class="card-body">
                 <h5 class="card-title">{{e.company_name}}</h5>
-                <p class="card-text">Names: {{e.user.first_name}} {{e.user.last_name}}</p>
+                <p class="card-text">Names: {{e.user}}</p>
                 <a href="{% url 'employer-details' e.id %}" class="btn btn-primary">See details</a>
               </div>
             </div>
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}

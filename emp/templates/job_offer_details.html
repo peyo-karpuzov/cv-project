@@ -6,10 +6,12 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8"></div>
 
-    <h1>{{emp.employer_user.user.first_name}}</h1>
-    <h1>{{emp.position}}</h1>
-    <h1>{{emp.address}}</h1>
-    <h1>{{letter}}</h1>
+    <h1>{{job.employer_user}}</h1><br>
+    <p>{{job.position}}</p><br>
+    <p>{{job.address}}</p><br>
     <div class="col-lg-2"></div>
+    <a href="{% url 'job-edit' job.id %}" class="btn btn-primary">Edit job offer</a>
+    <a href="{% url 'job-delete' job.id %}" class="btn btn-danger">Delete job offer</a>
 </div>
+
 {% endblock %}

@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 
 
 def redirect_to_job_offers(request):
-    url = '/emp/jobs/'
+    url = '/emp/employers/'
     return HttpResponseRedirect(redirect_to=url)
 
 
