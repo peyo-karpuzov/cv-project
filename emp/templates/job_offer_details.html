@@ -9,10 +9,24 @@
     <h1>{{job.employer_user}}</h1><br>
     <p>{{job.position}}</p><br>
     <p>{{job.address}}</p><br>
+
+    {% if can_modify %}
     <a href="{% url 'job-edit' job.id %}" class="btn btn-primary">Edit job offer</a>
     <a href="{% url 'job-delete' job.id %}" class="btn btn-danger">Delete job offer</a>
+    {% endif %}
+    <a href="{% url 'letter-create' %}" class="btn btn-primary">Apply for the position</a>
     </div>
     <div class="col-lg-2"></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+    {% block 'mot_letter_section' %}
+    {% endblock %}
+    </div>
+    <div class="col-lg-2"></div>
+
 </div>
 
 {% endblock %}

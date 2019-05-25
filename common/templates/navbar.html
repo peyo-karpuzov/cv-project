@@ -33,17 +33,21 @@
         </div>
       </li>
 
+        {% if user.app_user %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Applicant
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="{% url 'cv-general-create' %}">Start new CV</a>
+          <a class="dropdown-item" href="{% url 'cv-workplace-create' %}">Add workplace</a>
+          <a class="dropdown-item" href="{% url 'cv-education-create' %}">Add education</a>
+          <a class="dropdown-item" href="{% url 'cv-languages-create' %}">Add language</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="{% url 'cv-mine' %}">My CV's</a>
         </div>
       </li>
+        {% elif user.emp_user %}
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,19 +55,18 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'job-mine' %}">My job offers</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="{% url 'job-create' %}">Create job offer</a>
         </div>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
+        {% endif %}
 
     {% endif %}
 
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and user.app_user %}
+      <li class="nav-item active">
+        <a class="nav-link my-2 my-sm-0" href="{% url 'applicant-profile' user.app_user.id %}">Hello, {{user}}! <span class="sr-only">(current)</span></a>
+      </li>
+    {% elif request.user.is_authenticated and user.emp_user %}
       <li class="nav-item active">
         <a class="nav-link my-2 my-sm-0" href="#">Hello, {{user}}! <span class="sr-only">(current)</span></a>
       </li>

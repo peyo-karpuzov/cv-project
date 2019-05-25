@@ -1,22 +1,28 @@
 from django.shortcuts import render
 from django.views import generic
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cv.models import MotivationLetter, ApplicantUser
+from cv.forms import MotivationLetterForm
 
 from .models import JobOffer, EmployerUser
-from . import forms
+from .forms import EmployerUserForm, JobOfferForm
 
 
-def job_is_of_employer(current_user, current_object):
-    emp_user = EmployerUser.objects.all().filter(user__pk=current_user.id)[0]
-    if current_object.user == emp_user or current_user.is_superuser:
+def have_access_to_modify(current_user, current_object):
+    if ApplicantUser.objects.all().filter(user=current_user):
         return True
-    return False
+    elif current_user.is_superuser:
+        return True
+    elif current_object.employer_user == EmployerUser.objects.all().filter(user=current_user):
+        return True
+    else:
+        return False
 
 
 class EmployerCreate(generic.CreateView):
-    form_class = forms.EmployerUserForm
+    form_class = EmployerUserForm
     template_name = 'employer_create.html'
     success_url = '/emp/employers/'
 
@@ -49,7 +55,7 @@ class EmployerEdit(generic.UpdateView):
     model = EmployerUser
     template_name = 'employer_create.html'
     context_object_name = 'form'
-    form_class = forms.EmployerUserForm
+    form_class = EmployerUserForm
     success_url = '/emp/employers/'
 
 
@@ -61,13 +67,16 @@ class EmployerDelete(generic.DeleteView):
 
 
 class JobOfferCreate(generic.CreateView):
-    form_class = forms.JobOfferForm
+    form_class = JobOfferForm
     template_name = 'job_offer_create.html'
     success_url = '/emp/jobs/'
 
     def form_valid(self, form):
-        form.instance.employer_user = EmployerUser.objects.filter(user=self.request.user)[0]
-        return super().form_valid(form)
+        user_id = ApplicantUser.objects.all().filter(user__pk=self.request.user.id)
+        if not user_id:
+            form.instance.employer_user = EmployerUser.objects.filter(user=self.request.user)[0]
+            return super().form_valid(form)
+        return HttpResponse("The user must be an employer.")
 
 
 class JobOffersList(generic.ListView):
@@ -86,24 +95,50 @@ class JobOffersUserList(generic.ListView):
         jobs = JobOffer.objects.filter(employer_user=profile_user)
         if jobs:
             return jobs
-        return []
+        else:
+            return []
 
 
-class JobOfferDetails(generic.DetailView):
+class JobOfferDetails(LoginRequiredMixin, generic.DetailView):
     model = JobOffer
+    #login_url = '/accounts/login/'
     template_name = 'job_offer_details.html'
     context_object_name = 'job'
 
-    def get_context_data(self, **kwargs):
-        context = super(JobOfferDetails, self).get_context_data(**kwargs)
-        context['letter'] = MotivationLetter.objects.all().filter(job_offer=self.get_object())
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super(JobOfferDetails, self).get_context_data(**kwargs)
+#         context['letter'] = MotivationLetter.objects.all().filter(job_offer=self.get_object())
+#         context['form'] = MotivationLetterForm
+#         if have_access_to_modify(current_user=self.request.user, current_object=self.get_object()):
+#             context['can_modify'] = True
+#         else:
+#             context['can_modify'] = False
+#         return context
+#
+#     def post(self, request, pk):
+#         url = f'/emp/jobs/{self.get_object().id}/'
+#         post_values = request.POST.copy()
+#         form = MotivationLetterForm(post_values)
+#
+#         if form.is_valid():
+#             applicant_user = ApplicantUser.objects.all().filter(user__pk=request.user.id)[0]
+#             post_values['job_offer'] = self.get_object()
+#             motivation_letter = MotivationLetter(
+#                 cv_general=post_values['cv_general'],
+#                 text=post_values['text'],
+#                 job_offer=self.get_object(),
+#                 applicant_user=applicant_user
+#             )
+#             motivation_letter.save()
+#             return HttpResponseRedirect(url)
+#         else:
+#             raise(Exception(form.errors))
 
 
 class JobOfferEdit(generic.UpdateView):
     model = JobOffer
     template_name = 'job_offer_create.html'
-    form_class = forms.JobOfferForm
+    form_class = JobOfferForm
     success_url = '/emp/jobs/'
 
 

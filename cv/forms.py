@@ -60,3 +60,13 @@ class CVLanguagesForm(forms.ModelForm):
     class Meta:
         model = models.CVLanguages
         fields = ('id', 'language', 'writing', 'speaking', 'reading', 'listening', 'cv_general')
+
+
+class MotivationLetterForm(forms.ModelForm):
+    job_offer = forms.ModelChoiceField(required=True, queryset=models.JobOffer.objects.all())
+    cv_general = forms.ModelChoiceField(required=True, queryset=models.CVGeneral.objects.all())
+    text = forms.CharField(required=True, widget=forms.Textarea)
+
+    class Meta:
+        model = models.MotivationLetter
+        fields = ('id', 'job_offer', 'cv_general', 'text',)

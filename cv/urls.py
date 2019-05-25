@@ -10,8 +10,9 @@ urlpatterns = [
     path('education/create/', views.CVEducationCreate.as_view(), name='cv-education-create'),
     path('language/create/', views.CVLanguagesCreate.as_view(), name='cv-languages-create'),
     path('my_cvs/', views.CVList.as_view(), name='cv-all'),
+    path('my_cvs/mine/', views.CVUserList.as_view(), name='cv-mine'),
     re_path('^my_cvs/(?P<pk>\d+)/$', views.CVDetails.as_view(), name='cv-details'),
     re_path('my_cvs/edit/(?P<pk>\d+)/$', views.CVEdit.as_view(), name='cv-edit'),
     re_path('my_cvs/delete/(?P<pk>\d+)/$', views.CVDelete.as_view(), name='cv-delete'),
-
+    path('send_letter/', views.SendLetterCreate.as_view(), name='letter-create'),
 ]

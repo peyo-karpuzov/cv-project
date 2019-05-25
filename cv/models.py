@@ -7,7 +7,7 @@ from . import fill_in_choices
 
 
 class ApplicantUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="app_user")
     name_first = models.CharField(max_length=20)
     name_last = models.CharField(max_length=20)
 

@@ -72,6 +72,20 @@ class CVList(generic.ListView):
     context_object_name = 'cv'
 
 
+class CVUserList(generic.ListView):
+    model = CVGeneral
+    template_name = 'cv_list.html'
+    context_object_name = 'cv'
+
+    def get_queryset(self):
+        profile_user = ApplicantUser.objects.all().filter(user__pk=self.request.user.id)[0]
+        cv = CVGeneral.objects.filter(applicant_user=profile_user)
+        if cv:
+            return cv
+        else:
+            return []
+
+
 class CVDetails(generic.DetailView):
     model = CVGeneral
     template_name = 'cv_details.html'
@@ -97,3 +111,17 @@ class CVDelete(generic.DeleteView):
     template_name = 'cv_delete.html'
     context_object_name = 'cv'
     success_url = '/emp/jobs/'
+
+
+class SendLetterCreate(generic.CreateView):
+    template_name = 'motivation_letter_create.html'
+    form_class = forms.MotivationLetterForm
+    success_url = '/emp/jobs/'
+
+    def form_valid(self, form):
+        user_id = EmployerUser.objects.all().filter(user__pk=self.request.user.id)
+        if not user_id:
+            user = ApplicantUser.objects.all().filter(user__pk=self.request.user.id)[0]
+            form.instance.applicant_user = user
+            return super().form_valid(form)
+        return HttpResponse("The user is an Employer and cannot apply for the position")

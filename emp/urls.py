@@ -12,5 +12,5 @@ urlpatterns = [
     path('jobs/create/', views.JobOfferCreate.as_view(), name='job-create'),
     re_path('^jobs/edit/(?P<pk>\d+)/$', views.JobOfferEdit.as_view(), name='job-edit'),
     re_path('^jobs/delete/(?P<pk>\d+)/$', views.JobOfferDelete.as_view(), name='job-delete'),
-    path('my_jobs/', views.JobOffersUserList.as_view(), name='job-mine')
+    path('jobs/mine/', views.JobOffersUserList.as_view(), name='job-mine')
 ]

@@ -1,9 +1,18 @@
-{% extends 'index.html' %}
+{% extends 'job_offer_details.html' %}
 
-{% block 'content' %}
+{% block 'mot_letter_section' %}
     <h1>{{letter.text}}</h1>
     <h1>{{letter.applicant_user.user.first_name}}</h1>
     <h1>{{letter.job_offer.position}}</h1>
     <h1><b>Employer's name:</b> {{letter.job_offer.employer_user.user.first_name}}</h1>
+
+    <div class="box">
+            <form method="post">
+                {% csrf_token %}
+            {{form}}
+                <button class="btn btn-primary" type="submit">Send motivation letter</button>
+            </form>
+    </div>
+
 
 {% endblock %}
