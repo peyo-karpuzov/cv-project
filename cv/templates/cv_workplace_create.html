@@ -8,8 +8,12 @@
         <h1>Add a workplace to your CV:</h1>
         <form method="post">
         {% csrf_token %}
+        {% if not user.is_superuser %}
         {{form}}
-        <button class="btn btn-primary" type="submit">Add workplace</button>
+        <button class="btn btn-primary" type="submit">Complete section</button>
+        <a href="{% url 'cv-workplace-create' %}" class="btn btn-primary">Add another workplace</a>
+        <a href="{% url 'cv-education-create' %}" class="btn btn-primary">Go to education</a>
+        {% endif %}
         </form>
 
     </div>

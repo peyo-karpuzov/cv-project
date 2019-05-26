@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block 'content' %}
+
+{% if user.app_user %}
+<h1>Dear, {{user.app_user.name_first}},</h1>
+<h1>You can see your profile <a href="{% url 'applicant-profile' user.app_user.id %}">Profile</a></h1>
+<h1>Or you can see the jobs list <a href="{% url 'jobs-all' %}">Jobs</a></h1>
+{% elif user.is_superuser %}
+<h1> {{user}}, you are an employer and cannot create CV's.<br>But you can create job offers. :)
+    <a href="{% url 'job-create' %}" class="btn btn-primary">Create</a></h1>
+
+{% else %}
+<h1> Dear {{user}},<br>
+    in order to be able to create CV's, you need to complete your registration by filling in your two names.</h1><br><br>
+
+<h2>Please, click the button<a href="{% url 'applicant-create' %}" class="btn btn-primary">Register</a></h2>
+
+
+{% endif %}
+
+{% endblock %}

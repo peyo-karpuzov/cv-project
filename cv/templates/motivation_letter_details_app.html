@@ -2,7 +2,11 @@
 
 {% block 'content' %}
 
-    {% if user == letter.job_offer.user %}
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+
+    {% if user.app_user == letter.applicant_user %}
         <h1><b>Position:</b> {{letter.job_offer.position}}</h1><br>
         <h1><b>in</b> {{letter.job_offer.company_name}}</h1><br>
         <p><b>Candidate's name:</b> {{letter.applicant_user.name_first}} {{letter.applicant_user.name_last}}</p><br>
@@ -14,8 +18,10 @@
         <p><b>Email:</b> {{letter.cv_general.email}}</p><br>
         <p><b>Gender:</b> {{letter.cv_general.get_gender_display}}</p><br>
 
-
-        <a href="{% url 'mot-letter-delete' letter.id %}" class="btn btn-danger">Delete job offer</a>
     {% endif %}
+
+    </div>
+    <div class="col-lg-2"></div>
+</div>
 
 {% endblock %}

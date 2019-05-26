@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block 'free_content' %}
+        {% if letters %}
+        <div class="row">
+
+            {% for l in letters %}
+
+            <div class="card" style="width: 18rem;">
+
+              <div class="card-body">
+                  <h5 class="card-title"><b>Position:</b> {{l.job_offer.position}}</h5>
+                  <p class="card-text"><b>Company:</b> {{l.job_offer.company_name}}</p>
+                  <p class="card-text"><b>Candidate:</b> {{l.applicant_user.name_first}} {{l.applicant_user.name_last}}</p>
+                {% if request.user.is_superuser %}
+                <a href="{% url 'mot-letter-details' l.pk %}" class="btn btn-primary">See letter details</a>
+                {% else %}
+                <a href="{% url 'app-mot-letter-details' l.pk %}" class="btn btn-primary">See letter details</a>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+            <h1> There are no motivation letters at the moment.</h1>
+        {% endif %}
+
+{% endblock %}

@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-3"></div>
 
-
+    {% if not user.is_superuser %}
     <div class="col-lg-6">
         <div class="card" style="width: 36rem;">
           <div class="card-body">
@@ -74,6 +74,7 @@
           </div>
         </div>
     </div>
+    {% endif %}
     <div class="col-lg-3"></div>
 </div>
 

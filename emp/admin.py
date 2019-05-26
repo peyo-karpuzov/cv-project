@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import EmployerUser, JobOffer
+from .models import JobOffer
 
 
-admin.site.register(EmployerUser)
 admin.site.register(JobOffer)

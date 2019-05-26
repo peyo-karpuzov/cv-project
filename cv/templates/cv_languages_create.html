@@ -8,8 +8,12 @@
         <h1>Add a language to your CV:</h1>
         <form method="post">
         {% csrf_token %}
+        {% if not user.is_superuser %}
         {{form}}
-        <button class="btn btn-primary" type="submit">Add language</button>
+        <button class="btn btn-primary" type="submit">Complete section</button>
+        <a href="{% url 'cv-languages-create' %}" class="btn btn-primary">Add another language</a>
+        <a href="{% url 'applicant-profile' user.app_user.id %}" class="btn btn-primary">Go to profile</a>
+        {% endif %}
         </form>
 
     </div>

@@ -8,8 +8,10 @@
         <h1>Start your new CV:</h1>
         <form method="post">
         {% csrf_token %}
+        {% if not user.is_superuser %}
         {{form}}
         <button class="btn btn-primary" type="submit">Complete section</button>
+        {% endif %}
         </form>
 
     </div>

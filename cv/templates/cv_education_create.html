@@ -8,8 +8,12 @@
         <h1>Add educational degree to your CV:</h1>
         <form method="post">
         {% csrf_token %}
+        {% if not user.is_superuser %}
         {{form}}
-        <button class="btn btn-primary" type="submit">Add degree</button>
+        <button class="btn btn-primary" type="submit">Complete section</button>
+        <a href="{% url 'cv-education-create' %}" class="btn btn-primary">Add another degree</a>
+        <a href="{% url 'cv-languages-create' %}" class="btn btn-primary">Go to languages</a>
+        {% endif %}
         </form>
 
     </div>

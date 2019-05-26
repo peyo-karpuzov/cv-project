@@ -6,8 +6,10 @@
     <div class="col-lg-8">
         <form method="post">
             {% csrf_token %}
+            {% if user.is_superuser %}
             {{form}}
             <button class="btn btn-primary" type="submit">Create job offer</button>
+            {% endif %}
         </form>
     </div>
     <div class="col-lg-2"></div>

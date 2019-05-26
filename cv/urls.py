@@ -2,8 +2,8 @@ from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    re_path('^home/(?P<pk>\d+)/$', views.ApplicantProfile.as_view(), name='applicant-profile'),
-    re_path('^motivation_letters/(?P<pk>\d+)/$', views.MotivationLetterDetails.as_view(), name='mot_letter_details'),
+    re_path('^profile/(?P<pk>\d+)/$', views.ApplicantProfile.as_view(), name='applicant-profile'),
+    path('send_letter/', views.SendLetterCreate.as_view(), name='letter-create'),
     path('applicant/create/', views.ApplicantCreate.as_view(), name='applicant-create'),
     path('general/create/', views.CVGeneralCreate.as_view(), name='cv-general-create'),
     path('workplace/create/', views.CVWorkplaceCreate.as_view(), name='cv-workplace-create'),
@@ -14,5 +14,7 @@ urlpatterns = [
     re_path('^my_cvs/(?P<pk>\d+)/$', views.CVDetails.as_view(), name='cv-details'),
     re_path('my_cvs/edit/(?P<pk>\d+)/$', views.CVEdit.as_view(), name='cv-edit'),
     re_path('my_cvs/delete/(?P<pk>\d+)/$', views.CVDelete.as_view(), name='cv-delete'),
-    path('send_letter/', views.SendLetterCreate.as_view(), name='letter-create'),
+    re_path('^motivation_letters/(?P<pk>\d+)/$', views.MotivationLetterAppDetails.as_view(),
+            name='app-mot-letter-details'),
+    path('motivation_letters/', views.MotivationLetterAppUserList.as_view(), name='app-mot-letter-list'),
 ]

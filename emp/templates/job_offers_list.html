@@ -3,13 +3,15 @@
 {% block 'free_content' %}
         {% if jobs %}
         <div class="row">
+
             {% for j in jobs %}
 
             <div class="card" style="width: 18rem;">
 
               <div class="card-body">
                 <h5 class="card-title">{{j.position}}</h5>
-                <p class="card-text">Names: {{j.employer_user}} {{j.employer_user.last_name}}</p>
+                  <p class="card-text"><b>Company:</b> {{j.company_name}}</p>
+                  <p class="card-text"><b>Starting salary:</b> {{j.starting_salary}} BGN</p>
                 <a href="{% url 'job-details' j.pk %}" class="btn btn-primary">See job details</a>
               </div>
             </div>
@@ -17,7 +19,12 @@
         </div>
 
         {% else %}
-            <h1> You have no job offers. You can create one <a href="{% url 'job-create' %}" class="btn btn-primary">Create job offer</a></h1>
+            <h1> There are no job offers at the moment.
+                {% if user.is_superuser %}
+                You can create one
+                <a href="{% url 'job-create' %}" class="btn btn-primary">Create job offer</a>
+                {% endif %}
+            </h1>
         {% endif %}
 
 {% endblock %}

@@ -6,27 +6,21 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8">
 
-    <h1>{{job.employer_user}}</h1><br>
-    <p>{{job.position}}</p><br>
-    <p>{{job.address}}</p><br>
+    <h1><b>Company:</b> {{job.company_name}}</h1><br>
+    <p><b>Address:</b> {{job.address}}</p><br>
+    <p><b>Position:</b> {{job.position}}</p><br>
+    <p><b>Starting salary:</b> {{job.starting_salary}} BGN</p><br>
+    <p><b>Job Description:</b> {{job.job_description}}</p><br>
 
-    {% if can_modify %}
+
+    {% if user.is_superuser %}
     <a href="{% url 'job-edit' job.id %}" class="btn btn-primary">Edit job offer</a>
     <a href="{% url 'job-delete' job.id %}" class="btn btn-danger">Delete job offer</a>
-    {% endif %}
+    {% elif user.app_user %}
     <a href="{% url 'letter-create' %}" class="btn btn-primary">Apply for the position</a>
+    {% endif %}
     </div>
     <div class="col-lg-2"></div>
-</div>
-
-<div class="row">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
-    {% block 'mot_letter_section' %}
-    {% endblock %}
-    </div>
-    <div class="col-lg-2"></div>
-
 </div>
 
 {% endblock %}

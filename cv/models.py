@@ -17,7 +17,7 @@ class ApplicantUser(models.Model):
 
 class CVGeneral(models.Model):
     town = models.CharField(max_length=30)
-    street = models.CharField(max_length=30)
+    street = models.CharField(max_length=50)
     pic = models.URLField()
     phone_number = models.PositiveIntegerField()
     email = models.CharField(max_length=30)
@@ -25,7 +25,7 @@ class CVGeneral(models.Model):
     applicant_user = models.ForeignKey(ApplicantUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"General Info about {self.applicant_user}"
+        return f"{self.pk} CV of {self.applicant_user}"
 
 
 class CVWorkPlaces(models.Model):
@@ -33,7 +33,7 @@ class CVWorkPlaces(models.Model):
     position = models.CharField(max_length=30)
     start_date = models.DateField()
     end_date = models.DateField()
-    cv_general = models.ForeignKey(CVGeneral, on_delete=models.CASCADE)
+    cv_general = models.ForeignKey(CVGeneral, on_delete=models.CASCADE, related_name='cv_workplaces_general')
 
     def __str__(self):
         return f"Work place: {self.position} in {self.company}"
